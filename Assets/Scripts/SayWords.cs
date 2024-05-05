@@ -10,18 +10,24 @@ public class SayWords : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private TextMeshProUGUI prompt;
     [SerializeField] public Image result;
-    [SerializeField] private Button button;
+    [SerializeField] public Image attempt;
+    [SerializeField] private Button checkbutton;
+    [SerializeField] private Button promptbutton;
     static string[] words = { "at", "mad", "sad", "dad", "sat", "mat" };
     public List<string> wordlist = new List<string>(words);
     string word;
+    int i;
 
     // Start is called before the first frame update
     void Start()
     {
-        result = GetComponent<UnityEngine.UI.Image>();
+        //result = GetComponent<UnityEngine.UI.Image>();
         result.enabled = false;
+        attempt.enabled = false;
         prompt.text = words[0];
-        CheckList();
+        //CheckList(0);
+        promptbutton.onClick.AddListener(CheckList);
+        //checkbutton.onClick.AddListener(CheckWord);
     }
 
     // Update is called once per frame
@@ -30,19 +36,32 @@ public class SayWords : MonoBehaviour
     }
     void CheckList()
     {
-        for (int i = 0; i < wordlist.Count; i++)
+        result.enabled = false;
+        attempt.enabled = false;
+        word = wordlist[i];
+        prompt.text = word;
+        if(text.text != "Sending..." || text.text != "Recording...") { CheckWord(); }
+        if (i < wordlist.Count) { CheckList(); }
+        
+        /**for (int i = 0; i < wordlist.Count; i++)
         {
             word = wordlist[i];
             prompt.text = word;
             button.onClick.AddListener(CheckWord);
-        }
+
+            //CheckWord();
+        }**/
+        prompt.text = "well done";
+        
     }
     void CheckWord()
     {
-        if(text.text == word)
+        if(text.text.ToLower() == word)
         {
             result.enabled = true;
         }
+        else { attempt.enabled = true; }
+        i++;
     }
     private void AddWord(string word)
     {

@@ -26,21 +26,24 @@ public class SayWords : MonoBehaviour
         attempt.enabled = false;
         prompt.text = words[0];
         //CheckList(0);
-        promptbutton.onClick.AddListener(CheckList);
-        //checkbutton.onClick.AddListener(CheckWord);
+        promptbutton.onClick.AddListener(NextPrompt);
+        checkbutton.onClick.AddListener(CheckList);
     }
 
     // Update is called once per frame
     void Update()
     {
     }
-    void CheckList()
+    void NextPrompt()
     {
         result.enabled = false;
         attempt.enabled = false;
         word = wordlist[i];
         prompt.text = word;
-        if(text.text != "Sending..." || text.text != "Recording...") { CheckWord(); }
+    }
+    void CheckList()
+    {
+        if(text.text != "Sending..." || text.text != "Recording...") { CheckWord();
         if (i < wordlist.Count) { CheckList(); }
         
         /**for (int i = 0; i < wordlist.Count; i++)
@@ -51,7 +54,7 @@ public class SayWords : MonoBehaviour
 
             //CheckWord();
         }**/
-        prompt.text = "well done";
+        prompt.text = "well done";}
         
     }
     void CheckWord()

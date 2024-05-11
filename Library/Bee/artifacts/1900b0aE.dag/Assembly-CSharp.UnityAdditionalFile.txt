@@ -1,1 +1,1 @@
-C:\Users\hanin\Documents\GitHub\PhonemeDetection
+C:\Users\hanin\PhonemeDetection

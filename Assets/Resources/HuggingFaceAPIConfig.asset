@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2e4a11424bacd4418fb6c47ff99b12a, type: 3}
   m_Name: HuggingFaceAPIConfig
   m_EditorClassIdentifier: 
-  _apiKey: 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
+  _apiKey: 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
   _useBackupEndpoints: 1
   _waitForModel: 1
   _maxTimeout: 3
   _taskEndpoints:
   - taskName: AutomaticSpeechRecognition
-    endpoint: https://api-inference.huggingface.co/models/vitouphy/wav2vec2-xls-r-300m-timit-phoneme
+    endpoint: https://api-inference.huggingface.co/models/openai/whisper-tiny
   - taskName: Conversation
     endpoint: https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill
   - taskName: QuestionAnswering

@@ -363,6 +363,7 @@
 "Assets/HuggingFaceAPI/Examples/Scripts/ConversationExample.cs"
 "Assets/HuggingFaceAPI/Examples/Scripts/SpeechRecognitionExample.cs"
 "Assets/HuggingFaceAPI/Examples/Scripts/TextToImageExample.cs"
+"Assets/Scripts/Main_menu.cs"
 "Assets/Scripts/SayWords.cs"
 "Assets/Scripts/SpeechRecognition.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

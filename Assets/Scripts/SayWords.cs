@@ -44,7 +44,7 @@ public class SayWords : MonoBehaviour
             Debug.Log("Started checking word at timestamp: " + Time.time);
 
             //yield a new instruction to wait 500 ms
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
 
             //after waiting the timestamp is shown
             Debug.Log("The final check was done at timestamp: " + Time.time);
@@ -69,8 +69,8 @@ public class SayWords : MonoBehaviour
 
     void CheckWord()
     {
-        //wait(500);
-        if(text.text != "Sending..." && text.text != "Recording..." && text.text != ""){
+        //wait(500);  && text.text != ""
+        if(text.text != "Sending..." && text.text != "Recording..."){
             if(text.text.ToLower().Contains(wordlist[currentIndex].ToLower()))
             {
                 result.enabled = true;

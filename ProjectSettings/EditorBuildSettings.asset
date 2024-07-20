@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 65ea30733014a8d44a9fbcb8ac51fef0
+  - enabled: 1
+    path: Assets/Scenes/ConnectGame.unity
+    guid: 024cb42086727834d891a023b5c1603a
+  - enabled: 1
+    path: Assets/Scenes/MatchingGame.unity
+    guid: dc35358901074d049af08478e389e2ad
+  - enabled: 1
+    path: Assets/Scenes/SoundsScene.unity
+    guid: 964fbec5168a5ec4398c57bc09b69b48
   m_configObjects: {}

@@ -3,53 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ConnectGame : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler
+public class ConnectGame : MonoBehaviour//, IPointerClickHandler, IPointerEnterHandler
 {
-    static ConnectGame firstCard;
-    static ConnectGame secondCard;
-    static ConnectGame hoverCard;
+    static string firstCard;
+    static string secondCard;
+    static string hoverCard;
     public int cardNum;
     public string cardTag;
-    private bool firstClick;// = true;
-    private bool secondClick;// = false;
+    private float animationTime = 1f;
     private int score = 0;
+    private int clicks = 0;
     private bool matching = false;
+    static string[] cards = { "apple", "banana", "cup", "flower"};
+    private List<string> cardList = new List<string>(cards);
+    [SerializeField] public LineRenderer line0;
+    [SerializeField] public LineRenderer line1;
+    [SerializeField] public LineRenderer line2;
+    [SerializeField] public LineRenderer line3;
+    private LineRenderer line;
 
     void Start()
     {
-        firstClick = true;
-        secondClick = false;
+        line0.enabled = false;
+        line1.enabled = false;
+        line2.enabled = false;
+        line3.enabled = false;
     }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        hoverCard = this;
-    }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{
+        
+    //}
     // when the mouse is clicked, the card is assigned either as the first or second card
     //
-    //public void CardClicked()
-    public void OnPointerDown(PointerEventData eventData)
+    //public void OnPointerClick(PointerEventData eventData)
+    public void CardClicked()
     {
-        Debug.Log("A card was clicked");
-        if(firstClick == true)
+        hoverCard = EventSystem.current.currentSelectedGameObject.tag;
+        Debug.Log("A card was clicked: " + clicks);
+        clicks++;
+        if(clicks == 1)
         {
             //assign as first card
             firstCard = hoverCard;
             //set first click to false
-            firstClick = false;
+            //firstClick = false;
             //set second as true
-            secondClick = true;
+            //secondClick = true;
             //check if this condition is met
-            Debug.Log("1 - First card was clicked...");
+            Debug.Log("1 - First card was clicked..." + cardTag);
         }
-        else if(secondClick == true)
+        else if(clicks == 2)
         {
             //assign 2nd card
             secondCard = hoverCard;
             //assign 2nd click to false
-            secondClick = false;
+            //secondClick = false;
             // [could be moved to after the check?] assign 1st click to true
             // firstClick = true;
-            Debug.Log("2 - Second card was clicked...");
+            Debug.Log("2 - Second card was clicked..." + cardTag);
         }
         else
         {
@@ -58,20 +69,11 @@ public class ConnectGame : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         }
         CheckCards();
     }
-    /**
-    public bool IsFirstClick(int num)
-    {
-        return firstClick;
-    }
-    public bool IsSecondClick(int num)
-    {
-        return secondClick;
-    }**/
     void CheckCards()
     {
-        if(firstCard != null && secondCard != null)
+        if(clicks == 2)
         {
-            if(firstCard.cardTag.Equals(secondCard.cardTag))
+            if(firstCard == secondCard)
             {
                 matching = true;
                 score += score;
@@ -81,17 +83,52 @@ public class ConnectGame : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
             {
                 Debug.Log("They do not match");
             }
-            Debug.Log("The first tag was: "+firstCard.cardTag+" and the second was: "+secondCard.cardTag);
-        }
-        ConnectLine();
+            Debug.Log("The first tag was: "+firstCard+" and the second was: "+secondCard);
+            ConnectLine();
+        }  
     }
     void ConnectLine()
     {
         if(matching == true)
         {
             Debug.Log("Draw a line between first and second cards then reset pls");
-            Destroy(firstCard);
-            Destroy(secondCard);
+            tag = hoverCard;
+            switch(tag)
+            {
+            case "cardA":
+                line = line0;
+                break;
+            case "cardB":
+                line = line1;
+                break;
+            case "cardC":
+                line = line2;
+                break;
+            case "cardD":
+                line = line3;
+                break;
+            }
+            StartCoroutine(AnimateLine());
+            //Destroy(firstCard);
+            //Destroy(secondCard);
+            //firstClick = true;
+        }
+        clicks = 0;
+        matching = false;
+    }
+    private IEnumerator AnimateLine()
+    {
+        line.enabled = true;
+        float startTime = Time.time;
+        Vector3 startPos = line.GetPosition(0);
+        Vector3 endPos = line.GetPosition(1);
+        Vector3 pos = startPos;
+        while(pos != endPos)
+        {
+            float t = (Time.time - startTime) / animationTime;
+            pos = Vector3.Lerp(startPos, endPos, t);
+            line.SetPosition(1, pos);
+            yield return null;
         }
     }
 }
